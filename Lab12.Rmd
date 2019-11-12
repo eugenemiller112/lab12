@@ -4,8 +4,9 @@ author: "Johnny Tamanaha, Emily Archambault, Kaiyuan Fan, Eugene Miller, Jingzhi
 date: "November 15, 2019"
 output: html_document
 ---
+
 ## Permutation Testing
-```{r, message = FALSE, echo = TRUE, message = FALSE}
+```{r, message = F, echo = T, message = F, eval = F}
 
 perm_mean <- function(perms = 1000, all_values, n_A)
 {
@@ -39,23 +40,9 @@ perm_mean <- function(perms = 1000, all_values, n_A)
 }
 ```
 
-# Linear Correlation Permuation Test
+## Linear Correlation Permuation Test
 
-Say we want to figure out if two variables in a dataset are linearly correlated. For example, is a person's age correlated with a person's income?
-
-Recall that the Pearson correlation coefficient measures the strength of the linear relationship $\rho$ between two random variables, $X$ and $Y$. A correlation close to 1 indicates a strong, positive linear relationship. A correlation close to -1 indicates a strong, negative linear relationship. A correlation close to 0 indicates no linear relationship.
-
-Our null hypothesis is that the variables are not correlated. Our alternative hypothesis is that the variables are correlated.
-
-> **H0:** $\rho = 0$  
-**H1:** $\rho \neq 0$
-
-To test our hypothesis, we shuffle the labels on both variables many times. For each iteration, we compute the Pearson linear correlation $\rho$. Make a histogram of all the shuffled correlations. Plot the actual correlation between the variables on the histogram. Reject the null hypothesis if the percentile of the actual correlation is in the critical region.
-
-
-Implement the following function, perm_cor, to create 1000 iterations of the correlation permuation test. Fill in the function-skeleton to implement the function.
-
-```{r, eval = F}
+```{r, message = F, echo = T, message = F, eval = F}
 
 perm_cor <- function(perms = 1000, x, y)
 {
@@ -64,26 +51,23 @@ perm_cor <- function(perms = 1000, x, y)
   # x: Vector of Variable 1 - for computing correlation
   # y: Vector of Variable 2 - for computing correlation
   ###############
-  
-  # Step 1:
-  # Create vector of zeroes of length "perms" to store
-  # permuted mean differnces
+
+  #Create zero vector
+  vec <- numeric(perms)
   
   # Loop throught number of permutations
   for (i in c(1:perms))
   {
-    # Step 2:
-    # Randomly mix up the values in the vector "y"
+    #Randomize y vector
+    r_Y <- sample(y)
     
-    # Step 3:
-    # Compute the correlation between x and the randomly mixed
-    # up y-vector. Store this value in the vector from step 1.
+    #Computer correlation and store
+    vec[i] <- cor(x, r_Y)
     
   }
   
-  # Step 4:
-  # Return new updated vector, created in step 1
-  
+  # Return new updated vector
+  return(vec)
 }
 ```
 
