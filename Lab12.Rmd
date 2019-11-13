@@ -8,6 +8,15 @@ output: html_document
 library(tidyverse)
 library(gapminder)
 ```
+```
+{r, message = FALSE}
+vowels <- gapminder %>%
+  filter(continent == "Asia" | continent == "Europe") %>%
+  filter(year == 2007) %>%
+  select("country", "continent") %>%
+  group_by(country) %>%
+  mutate(vowel = str_count(country, "[AEIOUaeiou]"))
+```
 
 ## Permutation Testing
 ```{r, message = F, echo = T, message = F, eval = T}
