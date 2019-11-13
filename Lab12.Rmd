@@ -4,9 +4,13 @@ author: "Johnny Tamanaha, Emily Archambault, Kaiyuan Fan, Eugene Miller, Jingzhi
 date: "November 15, 2019"
 output: html_document
 ---
+```{r, setup, message = F, echo = F, message = F, eval = T}
+library(tidyverse)
+library(gapminder)
+```
 
 ## Permutation Testing
-```{r, message = F, echo = T, message = F, eval = F}
+```{r, message = F, echo = T, message = F, eval = T}
 
 perm_mean <- function(perms = 1000, all_values, n_A)
 {
@@ -42,7 +46,7 @@ perm_mean <- function(perms = 1000, all_values, n_A)
 
 ## Linear Correlation Permuation Test
 
-```{r, message = F, echo = T, message = F, eval = F}
+```{r, message = F, echo = T, message = F, eval = T}
 
 perm_cor <- function(perms = 1000, x, y)
 {
@@ -73,22 +77,27 @@ perm_cor <- function(perms = 1000, x, y)
 
 # Gapminder Questions
 
-Your data science team must come up with two specific questions of interest about the gapminder data set (from 'gapminder' library). 
+#Your data science team must come up with two specific questions of interest about the gapminder data set (from 'gapminder' library). 
 
-* Briefly describe the gapminder dataset.
+Is there a correlation between life expectancy and population?
 
-* Explain why your questions are important. One of the questions should be answered with the two-sample mean permutation test, and the other with the correlation permutation test.
+How does the number of vowels in a countries name differ between Europe and Asia?
 
-* Finish the function skeletons to implement the two-sample permuation test and the correlation permutation test. Run a two-sample mean permutation test. Run a correlation permutation test.
 
-* Create visualizations of the statistical tests.
+#* Briefly describe the gapminder dataset.
 
-* Make data-based conclusions about the results. Do you believe there are differences among the groups you are comparing? 
+This is a dataset compiled from UN collected data that tracks gdp, gdp per capita, population, and life expectancy across countries every five years. 
 
-* Generate percentiles, summary statistics (max, min), and probabilites (p-values) to justify your conclusions.
+#* Explain why your questions are important. One of the questions should be answered with the two-sample mean permutation test, and the other with the correlation permutation test.
 
-* Summarize each individual's contribution to the lab.
+Our first question is important because it knowing how population and life expectancy are correlated can help decision makers to determine whether family planning is the best strategy to improve life expectancy. 
 
-# Format and Order for Team Lab Report
+The second question is important because it provides entertainment to our domain expert.
 
-Create a team R Markdown document knitted to html and submitted to OSF. Put your team name in the filename. Make sure your code works on the updated dataset realeased on Friday.
+#* Create visualizations of the statistical tests.
+
+#* Make data-based conclusions about the results. Do you believe there are differences among the groups you are comparing? 
+
+#* Generate percentiles, summary statistics (max, min), and probabilites (p-values) to justify your conclusions.
+
+#* Summarize each individual's contribution to the lab.
