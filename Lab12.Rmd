@@ -134,7 +134,6 @@ ggplot() + aes(lifeExp_pop_perm)+ geom_histogram(binwidth=.01, colour="black", f
 ggplot() + aes(vowel_test)+ geom_histogram(binwidth=.01, colour="black", fill="white") + geom_vline(mapping =aes(xintercept=mean_diff))
 ```
 
-#* Make data-based conclusions about the results. Do you believe there are differences among the groups you are comparing? 
 
 #* Generate percentiles, summary statistics (max, min), and probabilites (p-values) to justify your conclusions.
 ```{r, message = F, echo = T, message = F, eval = T}
@@ -150,5 +149,31 @@ p_value_2
 #As our p value is >5%, our result is not statistically significant
 
 ```
+```{r, message = F, echo = T, message = F, eval = T}
+vowelmean <- vowels%>%
+  group_by(continent) %>%
+  summarise(avgvowel = mean(rate_vowel))
+vowelmean
+
+mineurope <- vowels %>%
+  filter(continent=="Europe")%>%
+  summarise(min_eur = min(rate_vowel))
+
+maxeurope <- vowels %>%
+  filter(continent=="Europe")%>%
+  summarise(max_eur = max(rate_vowel))
+
+minasia <- vowels %>%
+  filter(continent=="Asia")%>%
+  summarise(min_asia = min(rate_vowel))
+
+maxasia <- vowels %>%
+  filter(continent=="Asia")%>%
+  summarise(max_asia = max(rate_vowel))
+```
+
+#* Make data-based conclusions about the results. Do you believe there are differences among the groups you are comparing? 
+
+It appears that there is no significant difference between the number of vowels in Asian country names versus the number of vowels in European country names. Our p value for this test is `r p_value_2`, which indicates that the result is not statistically significant. This is supported by looking at the data in the table; the average vowel percentages of each country name across continents differ by only 2.12117%. Similarly, the minimum vowel percentage for Asian countries is `r minasia`, while Europe is `r mineurope`. The max for Asia is `r maxasia` and the max for Europe is `r maxeurope`. These comparisons highlight again that there is no significant difference between vowel frequency across continents.
 
 #* Summarize each individual's contribution to the lab.
