@@ -102,8 +102,7 @@ mean_diff <- mean(asia_vowels$rate_vowel) - mean(europe_vowels$rate_vowel)
 vowel_test <- perm_mean(perms = 1000, vowels$rate_vowel, 33)
 
 #Calculate p value.
-p_percent <- sum(vowel_test < mean_diff)/1000 * 100
-
+p_percent <- 1 - (sum(vowel_test < mean_diff)/1000 * 100)
 #As our p value is >5%, our result is not statistically significant
 ```
 
