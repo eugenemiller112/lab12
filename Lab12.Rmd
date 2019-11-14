@@ -97,20 +97,13 @@ perm_cor <- function(perms = 1000, x, y)
 # Gapminder Questions
 
 ```{r, message = F, echo = T, message = F, eval = T}
-#Calculate mean and permutation test
+#Calculate mean and permutation test for both questions
 mean_corr <- cor(gapminder$lifeExp, gapminder$pop)
 lifeExp_pop_perm <- perm_cor(1000, gapminder$lifeExp, gapminder$pop)
 
-#Calculate P Value
-p_value <- 100 - sum(lifeExp_pop_perm<mean_corr)/1000 * 100
-p_value
-
-#Calculating mean, and permutation test.
 mean_diff <- mean(asia_vowels$rate_vowel) - mean(europe_vowels$rate_vowel)
 vowel_test <- perm_mean(perms = 1000, vowels$rate_vowel, 33)
 
-#Calculate p value.
-p_percent <- 1 - (sum(vowel_test < mean_diff)/1000 * 100)
 #As our p value is >5%, our result is not statistically significant
 ```
 
@@ -147,13 +140,13 @@ ggplot() + aes(vowel_test)+ geom_histogram(binwidth=.01, colour="black", fill="w
 ```{r, message = F, echo = T, message = F, eval = T}
 #Life expectancy population question
 #Calculate P Value
-p_value <- 100 - sum(lifeExp_pop_perm<mean_corr)/1000 * 100
-p_value
+p_value_1 <- 100 - sum(lifeExp_pop_perm<mean_corr)/1000 * 100
+p_value_1
 
 #Vowel Question
 #Calculate p value.
-p_percent <- 100 - (sum(vowel_test < mean_diff)/1000 * 100)
-p_percent
+p_value_2 <- 100 - (sum(vowel_test < mean_diff)/1000 * 100)
+p_value_2
 #As our p value is >5%, our result is not statistically significant
 
 ```
