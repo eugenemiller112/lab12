@@ -149,7 +149,7 @@ p_value_2
 #As our p value is >5%, our result is not statistically significant
 
 ```
-```{r, message = F, echo = T, message = F, eval = T}
+```{r, message = F, echo = FALSE, message = F, eval = T}
 vowelmean <- vowels%>%
   group_by(continent) %>%
   summarise(avgvowel = mean(rate_vowel))
