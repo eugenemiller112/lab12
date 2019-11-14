@@ -8,14 +8,24 @@ output: html_document
 library(tidyverse)
 library(gapminder)
 ```
-```
-{r, message = FALSE}
+```{r, message = FALSE}
+
 vowels <- gapminder %>%
   filter(continent == "Asia" | continent == "Europe") %>%
   filter(year == 2007) %>%
   select("country", "continent") %>%
-  group_by(country) %>%
   mutate(vowel = str_count(country, "[AEIOUaeiou]"))
+
+#33 countries in Asia, 30 in Europe
+
+#Calculating the rate of vowels in a country's name
+vowels$country <- as.character(vowels$country)
+vowels <- vowels %>%
+  mutate(rate_vowel = vowel/nchar(`country`))
+asia_vowels <- vowels %>%
+  filter(continent == "Asia")
+europe_vowels <- vowels %>%
+  filter(continent == "Europe")
 ```
 
 ## Permutation Testing
@@ -48,7 +58,7 @@ perm_mean <- function(perms = 1000, all_values, n_A)
     
   }
   
-  return(vec)
+  return(mu_vec)
   
 }
 ```
@@ -85,6 +95,12 @@ perm_cor <- function(perms = 1000, x, y)
 ```
 
 # Gapminder Questions
+
+```{r, message = F, echo = T, message = F, eval = T}
+mean_diff <- mean(asia_vowels$rate_vowel) - mean(europe_vowels$rate_vowel)
+vowel_test <- perm_mean(perms = 1000, vowels$rate_vowel, 33)
+#Need to calculate p value.
+```
 
 #Your data science team must come up with two specific questions of interest about the gapminder data set (from 'gapminder' library). 
 
