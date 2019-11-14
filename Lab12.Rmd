@@ -131,5 +131,12 @@ ggplot() + aes(vowel_test)+ geom_histogram(binwidth=.01, colour="black", fill="w
 #* Make data-based conclusions about the results. Do you believe there are differences among the groups you are comparing? 
 
 #* Generate percentiles, summary statistics (max, min), and probabilites (p-values) to justify your conclusions.
+```{r, message = F, echo = T, message = F, eval = T}
+#Vowel Question
+#Calculate p value.
+p_percent <- 1 - (sum(vowel_test < mean_diff)/1000 * 100)
+#As our p value is >5%, our result is not statistically significant
+
+```
 
 #* Summarize each individual's contribution to the lab.
