@@ -97,9 +97,14 @@ perm_cor <- function(perms = 1000, x, y)
 # Gapminder Questions
 
 ```{r, message = F, echo = T, message = F, eval = T}
+#Calculating mean, and permutation test.
 mean_diff <- mean(asia_vowels$rate_vowel) - mean(europe_vowels$rate_vowel)
 vowel_test <- perm_mean(perms = 1000, vowels$rate_vowel, 33)
-#Need to calculate p value.
+
+#Calculate p value.
+p_percent <- sum(vowel_test < mean_diff)/1000 * 100
+
+#As our p value is >5%, our result is not statistically significant
 ```
 
 #Your data science team must come up with two specific questions of interest about the gapminder data set (from 'gapminder' library). 
@@ -120,6 +125,9 @@ Our first question is important because it knowing how population and life expec
 The second question is important because it provides entertainment to our domain expert.
 
 #* Create visualizations of the statistical tests.
+```{r, message = F, echo = T, message = F, eval = T}
+ggplot() + aes(vowel_test)+ geom_histogram(binwidth=.01, colour="black", fill="white") + geom_vline(mapping =aes(xintercept=mean_diff))
+```
 
 #* Make data-based conclusions about the results. Do you believe there are differences among the groups you are comparing? 
 
