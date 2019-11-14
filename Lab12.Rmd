@@ -97,6 +97,14 @@ perm_cor <- function(perms = 1000, x, y)
 # Gapminder Questions
 
 ```{r, message = F, echo = T, message = F, eval = T}
+#Calculate mean and permutation test
+mean_corr <- cor(gapminder$lifeExp, gapminder$pop)
+lifeExp_pop_perm <- perm_cor(1000, gapminder$lifeExp, gapminder$pop)
+
+#Calculate P Value
+p_value <- 100 - sum(lifeExp_pop_perm<mean_corr)/1000 * 100
+p_value
+
 #Calculating mean, and permutation test.
 mean_diff <- mean(asia_vowels$rate_vowel) - mean(europe_vowels$rate_vowel)
 vowel_test <- perm_mean(perms = 1000, vowels$rate_vowel, 33)
@@ -124,6 +132,11 @@ Our first question is important because it knowing how population and life expec
 The second question is important because it provides entertainment to our domain expert.
 
 #* Create visualizations of the statistical tests.
+
+```{r, message = F, echo = T, message = F, eval = T}
+ggplot() + aes(lifeExp_pop_perm)+ geom_histogram(binwidth=.01, colour="black", fill="white") + geom_vline(mapping =aes(xintercept=mean_corr))
+```
+
 ```{r, message = F, echo = T, message = F, eval = T}
 ggplot() + aes(vowel_test)+ geom_histogram(binwidth=.01, colour="black", fill="white") + geom_vline(mapping =aes(xintercept=mean_diff))
 ```
@@ -132,9 +145,15 @@ ggplot() + aes(vowel_test)+ geom_histogram(binwidth=.01, colour="black", fill="w
 
 #* Generate percentiles, summary statistics (max, min), and probabilites (p-values) to justify your conclusions.
 ```{r, message = F, echo = T, message = F, eval = T}
+#Life expectancy population question
+#Calculate P Value
+p_value <- 100 - sum(lifeExp_pop_perm<mean_corr)/1000 * 100
+p_value
+
 #Vowel Question
 #Calculate p value.
-p_percent <- 1 - (sum(vowel_test < mean_diff)/1000 * 100)
+p_percent <- 100 - (sum(vowel_test < mean_diff)/1000 * 100)
+p_percent
 #As our p value is >5%, our result is not statistically significant
 
 ```
