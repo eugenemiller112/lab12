@@ -115,17 +115,17 @@ Is there a correlation between life expectancy and population?
 How does the number of vowels in a countries name differ between Europe and Asia?
 
 
-#* Briefly describe the gapminder dataset.
+# Briefly describe the gapminder dataset.
 
 This is a dataset compiled from UN collected data that tracks gdp, gdp per capita, population, and life expectancy across countries every five years. 
 
-#* Explain why your questions are important. One of the questions should be answered with the two-sample mean permutation test, and the other with the correlation permutation test.
+# Explain why your questions are important. One of the questions should be answered with the two-sample mean permutation test, and the other with the correlation permutation test.
 
 Our first question is important because it knowing how population and life expectancy are correlated can help decision makers to determine whether family planning is the best strategy to improve life expectancy. 
 
 The second question is important because it provides entertainment to our domain expert.
 
-#* Create visualizations of the statistical tests.
+# Create visualizations of the statistical tests.
 
 ```{r, message = F, echo = T, message = F, eval = T}
 ggplot() + aes(lifeExp_pop_perm)+ geom_histogram(binwidth=.01, colour="black", fill="white") + geom_vline(mapping =aes(xintercept=mean_corr))
@@ -136,7 +136,8 @@ ggplot() + aes(vowel_test)+ geom_histogram(binwidth=.01, colour="black", fill="w
 ```
 
 
-#* Generate percentiles, summary statistics (max, min), and probabilites (p-values) to justify your conclusions.
+#Generate percentiles, summary statistics (max, min), and probabilites (p-values) to justify your conclusions.
+
 ```{r, message = F, echo = T, message = F, eval = T}
 #Life expectancy population question
 #Calculate P Value
@@ -173,13 +174,13 @@ maxasia <- vowels %>%
   summarise(max_asia = max(rate_vowel))
 ```
 
-#* Make data-based conclusions about the results. Do you believe there are differences among the groups you are comparing? 
+# Make data-based conclusions about the results. Do you believe there are differences among the groups you are comparing? 
 
 It appears that there is no significant difference between the number of vowels in Asian country names versus the number of vowels in European country names. Our p value for this test is `r p_value_2`, which indicates that the result is not statistically significant. This is supported by looking at the data in the table; the average vowel percentages of each country name across continents differ by only 2.12117%. Similarly, the minimum vowel percentage for Asian countries is `r minasia`, while Europe is `r mineurope`. The max for Asia is `r maxasia` and the max for Europe is `r maxeurope`. These comparisons highlight again that there is no significant difference between vowel frequency across continents.
 
 There is a correlation between life expectancy and population with a p value of `r p_value_1`, indicating the correlation is statistically significant. 
 
-#* Summarize each individual's contribution to the lab.
+# Summarize each individual's contribution to the lab.
 
 Eugene Miller: Conducted permutation testing for vowel question and created plot, calculated p value. 
 
