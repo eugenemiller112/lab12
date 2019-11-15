@@ -144,7 +144,7 @@ p_value_1
 
 #Vowel Question
 #Calculate p value.
-p_value_2 <- 100 - (sum(vowel_test < mean_diff)/1000 * 100)
+p_value_2 <- (sum(vowel_test < mean_diff)/1000)
 p_value_2
 #As our p value is >5%, our result is not statistically significant
 
@@ -177,3 +177,5 @@ maxasia <- vowels %>%
 It appears that there is no significant difference between the number of vowels in Asian country names versus the number of vowels in European country names. Our p value for this test is `r p_value_2`, which indicates that the result is not statistically significant. This is supported by looking at the data in the table; the average vowel percentages of each country name across continents differ by only 2.12117%. Similarly, the minimum vowel percentage for Asian countries is `r minasia`, while Europe is `r mineurope`. The max for Asia is `r maxasia` and the max for Europe is `r maxeurope`. These comparisons highlight again that there is no significant difference between vowel frequency across continents.
 
 #* Summarize each individual's contribution to the lab.
+
+Eugene Miller: Conducted permutation testing for vowel question and created plot, calculated p value. 
