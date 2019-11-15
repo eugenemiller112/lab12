@@ -7,6 +7,9 @@ output: html_document
 ```{r, setup, message = F, echo = F, message = F, eval = T}
 library(tidyverse)
 library(gapminder)
+
+gapminder <- gapminder_unfiltered
+
 ```
 ```{r, message = FALSE}
 
