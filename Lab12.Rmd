@@ -179,3 +179,5 @@ It appears that there is no significant difference between the number of vowels 
 #* Summarize each individual's contribution to the lab.
 
 Eugene Miller: Conducted permutation testing for vowel question and created plot, calculated p value. 
+
+Emily Archambault: Wrote regex for vowels and found stats, wrote conclusion for vowel question.
