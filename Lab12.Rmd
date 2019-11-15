@@ -1,4 +1,3 @@
-<<<<<<< Updated upstream
 ---
 title: 'Team All Stars Lab 12: Gapminder Permutation Tests'
 author: "Johnny Tamanaha, Emily Archambault, Kaiyuan Fan, Eugene Miller, Jingzhi Zhang"
@@ -176,183 +175,21 @@ minasia <- vowels %>%
 maxasia <- vowels %>%
   filter(continent=="Asia")%>%
   summarise(max_asia = max(rate_vowel))
+
+max_1 <- max(lifeExp_pop_perm)
+min_1 <- min(lifeExp_pop_perm)
 ```
 
 # Make data-based conclusions about the results. Do you believe there are differences among the groups you are comparing? 
 
 It appears that there is no significant difference between the number of vowels in Asian country names versus the number of vowels in European country names. Our p value for this test is `r p_value_2`, which indicates that the result is not statistically significant. This is supported by looking at the data in the table; the average vowel percentages of each country name across continents differ by only 2.12117%. Similarly, the minimum vowel percentage for Asian countries is `r minasia`, while Europe is `r mineurope`. The max for Asia is `r maxasia` and the max for Europe is `r maxeurope`. These comparisons highlight again that there is no significant difference between vowel frequency across continents.
 
-There is a correlation between life expectancy and population with a p value of `r p_value_1`, indicating the correlation is statistically significant. 
+There is a correlation between life expectancy and population with a p value of `r p_value_1`, indicating the correlation is statistically significant. The max of the test is `r max_1` and the min is `r min_1`.
 
 # Summarize each individual's contribution to the lab.
 
 Eugene Miller: Conducted permutation testing for vowel question and created plot, calculated p value. 
 
 Emily Archambault: Wrote regex for vowels and found stats, wrote conclusion for vowel question.
-=======
----
-title: 'Team All Stars Lab 12: Gapminder Permutation Tests'
-author: "Johnny Tamanaha, Emily Archambault, Kaiyuan Fan, Eugene Miller, Jingzhi Zhang"
-date: "November 15, 2019"
-output: html_document
----
-```{r, setup, message = F, echo = F, message = F, eval = T}
-library(tidyverse)
-library(gapminder)
-```
-```{r, message = FALSE}
-
-vowels <- gapminder %>%
-  filter(continent == "Asia" | continent == "Europe") %>%
-  filter(year == 2007) %>%
-  select("country", "continent") %>%
-  mutate(vowel = str_count(country, "[AEIOUaeiou]"))
-
-#33 countries in Asia, 30 in Europe
-
-#Calculating the rate of vowels in a country's name
-vowels$country <- as.character(vowels$country)
-vowels <- vowels %>%
-  mutate(rate_vowel = vowel/nchar(`country`))
-asia_vowels <- vowels %>%
-  filter(continent == "Asia")
-europe_vowels <- vowels %>%
-  filter(continent == "Europe")
-```
-
-## Permutation Testing
-```{r, message = F, echo = T, message = F, eval = T}
-
-perm_mean <- function(perms = 1000, all_values, n_A)
-{
-  ## Variables ##
-  # perms: The number of permutations 
-  # all_values (num): all data values
-  # n_A (int): Size of group A
-  ###############
-  
- mu_vec <- numeric(perms)
-  
-  # Loop throught number of permutations
-  for (i in c(1:perms))
-  {
-    #Creates a randomized vector.
-    shuffle <- sample(all_values)
-    
-    #Creates group A and B vectors
-    r_A <- shuffle[1:n_A]
-    r_B <- shuffle[(n_A+1):length(all_values)]
-    
-    #Calculate dealta mu
-    delta_mu <- mean(r_A) - mean(r_B)
-    
-    mu_vec[i] <- delta_mu
-    
-  }
-  
-  return(mu_vec)
-  
-}
-```
-
-## Linear Correlation Permuation Test
-
-```{r, message = F, echo = T, message = F, eval = T}
-
-perm_cor <- function(perms = 1000, x, y)
-{
-  ## Variables ##
-  # perms: The number of permutations 
-  # x: Vector of Variable 1 - for computing correlation
-  # y: Vector of Variable 2 - for computing correlation
-  ###############
-
-  #Create zero vector
-  vec <- numeric(perms)
-  
-  # Loop throught number of permutations
-  for (i in c(1:perms))
-  {
-    #Randomize y vector
-    r_Y <- sample(y)
-    
-    #Computer correlation and store
-    vec[i] <- cor(x, r_Y)
-    
-  }
-  
-  # Return new updated vector
-  return(vec)
-}
-```
-
-# Gapminder Questions
-
-```{r, message = F, echo = T, message = F, eval = T}
-#Calculate mean and permutation test for both questions
-mean_corr <- cor(gapminder$lifeExp, gapminder$pop)
-lifeExp_pop_perm <- perm_cor(1000, gapminder$lifeExp, gapminder$pop)
-
-mean_diff <- mean(asia_vowels$rate_vowel) - mean(europe_vowels$rate_vowel)
-vowel_test <- perm_mean(perms = 1000, vowels$rate_vowel, 33)
-
-#As our p value is >5%, our result is not statistically significant
-```
-
-#Your data science team must come up with two specific questions of interest about the gapminder data set (from 'gapminder' library). 
-
-Is there a correlation between life expectancy and population?
-
-How does the number of vowels in a countries name differ between Europe and Asia?
-
-
-#* Briefly describe the gapminder dataset.
-
-This is a dataset compiled from UN collected data that tracks gdp, gdp per capita, population, and life expectancy across countries every five years. 
-
-#* Explain why your questions are important. One of the questions should be answered with the two-sample mean permutation test, and the other with the correlation permutation test.
-
-Our first question is important because it knowing how population and life expectancy are correlated can help decision makers to determine whether family planning is the best strategy to improve life expectancy. 
-
-The second question is important because it provides entertainment to our domain expert.
-
-#* Create visualizations of the statistical tests.
-
-```{r, message = F, echo = T, message = F, eval = T}
-ggplot() + aes(lifeExp_pop_perm)+ geom_histogram(binwidth=.01, colour="black", fill="white") + geom_vline(mapping =aes(xintercept=mean_corr))
-```
-
-```{r, message = F, echo = T, message = F, eval = T}
-ggplot() + aes(vowel_test)+ geom_histogram(binwidth=.01, colour="black", fill="white") + geom_vline(mapping =aes(xintercept=mean_diff))
-```
-
-#* Make data-based conclusions about the results. Do you believe there are differences among the groups you are comparing? 
-
-#* Generate percentiles, summary statistics (max, min), and probabilites (p-values) to justify your conclusions.
-```{r, message = F, echo = T, message = F, eval = T}
-#Life expectancy population question
-#Calculate P Value
-p_value_1 <- 100 - sum(lifeExp_pop_perm<mean_corr)/1000 * 100
-p_value_1
-#P value is <5%, so result is statistically significant
-#Max and Min
-max_1 <- max(lifeExp_pop_perm)
-min_1 <- min(lifeExp_pop_perm)
-max_1
-min_1
-
-#Vowel Question
-#Calculate p value.
-p_value_2 <- 100 - (sum(vowel_test < mean_diff)/1000 * 100)
-p_value_2
-#As our p value is >5%, our result is not statistically significant
-#Max and Min
-max_2 <- max(vowel_test)
-min_2 <- min(vowel_test)
-max_2
-min_2
-```
-
-#* Summarize each individual's contribution to the lab.
 
 Johnny Tamanaha: I used the mean_corr function to get the permutation test for the correlation between population and life expectancy. I used that data to plot the histogram and find the p value of our correlation. 
