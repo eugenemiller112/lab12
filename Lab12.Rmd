@@ -192,6 +192,8 @@ Eugene Miller: Conducted permutation testing for vowel question and created plot
 
 Emily Archambault: Wrote regex for vowels and found stats, wrote conclusion for vowel question.
 
+Jingzhi Zhang: I practice answering all of the questions in the lab and I practice to create plots. 
+
 Johnny Tamanaha: I used the mean_corr function to get the permutation test for the correlation between population and life expectancy. I used that data to plot the histogram and find the p value of our correlation. 
 
 Kaiyuan Fan : I practice to conducting the permutation test for vowel question and do the plot by myself. Then I got stuck on how to make mean_corr function to get the permuation test. Then I ask teammate for help and I know the whole progress to get the p-value.
